@@ -5,6 +5,7 @@ for (let i = 0; i < button.length; i++) {
   button[i].addEventListener('click', createParagraph)
 }
 
+// Função: Cria um novo parágrafo e o insere no fim do arquivo HTML.
 function createParagraph() {
   let paragraph = document.createElement('p')
   
