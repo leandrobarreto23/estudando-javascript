@@ -53,6 +53,7 @@ function checkGuess(event) {
     } else {
       lowOrHigh.textContent = "Seu palpite está alto."
     }
+    xAttempts++
   }
   // zera o valor do input quando termina a aplicação
   inputGuess.value = ""
