@@ -1,17 +1,20 @@
+const app = document.querySelector('#app')
+
 // Gerar um número aleatório entre 1 e 10.
 let randomNumber = Math.floor(Math.random() * 10 + 1)
 
 // pegando os inputs
-let inputGuess = document.querySelector('#input-guess')
-let inputSubmit = document.querySelector('#submit-guess')
+const inputGuess = document.querySelector('#input-guess')
+const inputSubmit = document.querySelector('#submit-guess')
 
 // pegando os resultados
-let attempts = document.querySelector('.attempts')
-let lastResult = document.querySelector('.last-result')
-let lowOrHigh = document.querySelector('.low-or-high')
+const attempts = document.querySelector('.attempts')
+const lastResult = document.querySelector('.last-result')
+const lowOrHigh = document.querySelector('.low-or-high')
 
 let xAttempts = 1
-let btnTry
+
+const paragraphs = document.querySelector('.paragraphs')
 
 inputSubmit.addEventListener('click', checkGuess)
 
@@ -35,7 +38,7 @@ function checkGuess(event) {
     configEndGame()
   } 
   // se o numero de tentativas chegar a 5, termine o jogo
-  else if (attempts === 5) {
+  else if (xAttempts === 5) {
     lastResult.textContent = "!!! Fim de Jogo !!!"
     lowOrHigh.textContent = " "
     configEndGame()
@@ -55,4 +58,44 @@ function checkGuess(event) {
   inputGuess.value = ""
   // foca no input no final da aplicação
   inputGuess.focus()
+}
+
+function configEndGame() {
+  //quando o jogo acabar, desabilite os botoes
+  inputGuess.disabled = true
+  inputSubmit.disabled = true
+
+  // criando o botao de reinicio
+  restartButton = document.createElement('button')
+  // adicionando conteudo ao botao
+  restartButton.textContent = "Novo Jogo"
+  // adicionando uma classe de estilo ao botao
+  restartButton.classList.add('restart-button')
+  //atribuindo o botao ao corpo do app
+  app.appendChild(restartButton)
+
+  restartButton.addEventListener('click', restartGame)
+}
+
+function restartGame() {
+  xAttempts = 1
+
+  //pegando todos os paragrafos dentro da div e armazenando em um NodeList
+  let resetParagraphs = paragraphs.querySelectorAll('p')
+
+  //percorrendo o NodeList e mudando cada posição para vazio ("")
+  for (let i = 0; i < resetParagraphs.length; i++) {
+    resetParagraphs[i].textContent = ""
+  }
+
+  restartButton.parentNode.removeChild(restartButton)
+
+  // habilitando novamente os inputs
+  inputGuess.disabled = false
+  inputSubmit.disabled = false
+
+  inputGuess.value = ""
+  inputGuess.focus()
+
+  randomNumber = Math.floor(Math.random() * 10 + 1)
 }
